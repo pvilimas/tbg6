@@ -16,12 +16,14 @@ void TextArea::draw(void) {
 }
 
 void TextArea::addchar(KeyboardKey k) {
-    if (k == KEY_SPACE || KEY_A <= k && k <= KEY_Z) {
+    if (KEY_A <= k && k <= KEY_Z) {
         if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT)) {
             text += (char)k;
         } else {
             text += (char)k + 32;
         }
+    } else if (k == KEY_SPACE) {
+        text += (char)k;
     } else if (k == KEY_BACKSPACE) {
         text.pop_back();
         // strip text

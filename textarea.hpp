@@ -1,3 +1,6 @@
+#ifndef __TEXTAREA_HEADER__
+#define __TEXTAREA_HEADER__
+
 #include <iostream>
 #include <vector>
 
@@ -19,3 +22,5 @@ class TextArea {
         void draw(void);
         void addchar(KeyboardKey k);
 };
+
+#endif /* __TEXTAREA_HEADER__ */
