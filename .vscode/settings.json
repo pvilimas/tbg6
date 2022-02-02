@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.pl": "prolog",
+        "*.rb": "ruby",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "ios": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}
