@@ -6,13 +6,24 @@
 
 #include "raylib.h"
 
+#include "textarea.hpp"
+
 using namespace std;
 
 class Game {
+    string win_title;
+    int win_width, win_height;
+    Texture2D texture;
 
     public:
+    Game(string win_title, int win_width, int win_height);
     
-    static vector<KeyboardKey> keys_pressed(void);
+    void init();
+    void run();
+    void destroy();
+
+    static vector<KeyboardKey> keys_pressed();
+    
 };
 
 #endif /* __GAME_HEADER__ */

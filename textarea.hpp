@@ -12,15 +12,15 @@ class TextArea {
     int x, y, width, height;
     string text;
     
+    // displayed at the start of lines
+    static const string prompt;
+    
     public:
 
-        // displayed at the start of lines
-        static const string prompt;
-
-        TextArea(int xpos, int ypos, int w, int h);
-        
-        void draw(void);
-        void addchar(KeyboardKey k);
+    TextArea(int x, int y, int width = 640, int height = 100);
+    
+    void draw(void);
+    void addchar(KeyboardKey k);
 };
 
 #endif /* __TEXTAREA_HEADER__ */
