@@ -1,31 +1,27 @@
 #include <iostream>
+#include <vector>
+
+#include "textarea.hpp"
 
 #include "raylib.h"
 
 using namespace std;
+using std::vector;
 
-// displayed at the start of lines
-const string prompt = "> ";
-
-class TextArea {
-    int x, y, width, height;
-    string text;
-    
-    public:
-
-        TextArea(int xpos, int ypos, int w=100, int h=100) {
-            x = xpos;
-            y = ypos;
-            width = w;
-            height = h;
-            text = "text will go here\n> more stuff here\n> go north";
+vector<KeyboardKey> keys_pressed(void) {
+    vector<KeyboardKey> keys;
+    for (int k = KEY_A; k < KEY_Z; k++) {
+        if (IsKeyPressed(k)) {
+            keys.push_back((KeyboardKey)k);
         }
-
-        void draw(void) {
-            DrawRectangle(x, y, width, height, BLACK);
-            DrawText((prompt + text).c_str(), x, y, 20, WHITE);
-        }
-};
+    }
+    if (IsKeyPressed(KEY_BACKSPACE)) {
+        keys.push_back(KEY_BACKSPACE);
+    } else if (IsKeyPressed(KEY_SPACE)) {
+        keys.push_back(KEY_SPACE);
+    }
+    return keys;
+}
 
 int main() {
     InitWindow(640, 460, "textbasedgame");
@@ -44,6 +40,10 @@ int main() {
         ClearBackground(RAYWHITE);
         DrawTexture(texture, 0, 0, WHITE);
         t.draw();
+        auto keys = keys_pressed();
+        for (int i = 0; i < keys.size(); i++) {
+            t.addchar(keys[i]);
+        }
         
         EndDrawing();
     }

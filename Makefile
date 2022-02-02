@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -std=c++20 -Wall -Wextra -pedantic -O2 #-fsanitize=address -fsanitize=undefined -g
 LFLAGS = -lm -Iinclude -lraylib
-SRC = main.cpp
+SRC = main.cpp textarea.cpp
 
 all: clean build run
 
