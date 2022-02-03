@@ -12,14 +12,14 @@ class TextArea {
     
     int x, y, width, height;
     string text;
-    function <void(string)> eval;
+    function <void()> eval;
     
     // displayed at the start of lines
     static const string prompt;
     
     public:
     
-    TextArea(int x, int y, int width, int height, function<void(string)> eval_text);
+    TextArea(int x, int y, int width, int height, function<void()> eval_text);
     
     void Draw();
     void AddChar(KeyboardKey k);

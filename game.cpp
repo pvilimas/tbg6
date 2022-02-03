@@ -1,6 +1,6 @@
 #include "game.hpp"
 
-Game::Game(string win_title, int win_width, int win_height) : textarea(0, win_height-100, win_width, 100, [this](string s) { this->SetState(STATE_GAMEPLAY); }) {
+Game::Game(string win_title, int win_width, int win_height) : textarea(0, win_height-100, win_width, 100, [&] { this->SetState(STATE_GAMEPLAY); }) {
     this->win_title = win_title;
     this->win_width = win_width;
     this->win_height = win_height;

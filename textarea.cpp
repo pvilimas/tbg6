@@ -2,7 +2,7 @@
 
 const string TextArea::prompt = "> ";
 
-TextArea::TextArea(int x, int y, int width, int height, function<void(string)> eval_text) {
+TextArea::TextArea(int x, int y, int width, int height, function<void()> eval_text) {
     this->x = x;
     this->y = y;
     this->width = width;
@@ -21,6 +21,7 @@ void TextArea::AddChar(KeyboardKey k) {
         if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT)) {
             this->text += (char)k;
         } else {
+            // uppercase
             this->text += (char)k + 32;
         }
     } else if (k == KEY_SPACE) {
@@ -32,7 +33,7 @@ void TextArea::AddChar(KeyboardKey k) {
             this->text.pop_back();
         }
     } else if (k == KEY_ENTER) {
-        this->eval(this->text);
+        this->eval();
     }
 }
 
