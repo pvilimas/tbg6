@@ -1,6 +1,6 @@
 #include "game.hpp"
 
-Game::Game(string win_title, int win_width, int win_height) : textarea(0, win_height-100, win_width, 100, [&] { this->SetState(STATE_GAMEPLAY); }) {
+Game::Game(string win_title, int win_width, int win_height) : textarea(0, win_height-100, win_width, 100, [&](string s) { this->EvalText(s); }) {
     this->win_title = win_title;
     this->win_width = win_width;
     this->win_height = win_height;
@@ -23,6 +23,8 @@ void Game::Run() {
         this->Draw();
     }
 }
+
+void Game::Reset() {}
 
 void Game::Destroy() {
     UnloadTexture(this->texture);
@@ -66,6 +68,14 @@ void Game::SetState(GameState new_state) {
     }
 
     this->state = new_state;
+}
+
+void Game::EvalText(string text) {
+    if (text == "start") {
+        this->SetState(STATE_GAMEPLAY);
+    } else if (text == "quit") {
+        throw ExitGameException();
+    }
 }
 
 vector<KeyboardKey> Game::GetKeysPressed(void) {

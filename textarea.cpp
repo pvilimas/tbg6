@@ -2,13 +2,13 @@
 
 const string TextArea::prompt = "> ";
 
-TextArea::TextArea(int x, int y, int width, int height, function<void()> eval_text) {
+TextArea::TextArea(int x, int y, int width, int height, function<void(string)> eval) {
     this->x = x;
     this->y = y;
     this->width = width;
     this->height = height;
     this->text = "\0";
-    this->eval = eval_text;
+    this->eval = eval;
 }
 
 void TextArea::Draw() {
@@ -33,7 +33,7 @@ void TextArea::AddChar(KeyboardKey k) {
             this->text.pop_back();
         }
     } else if (k == KEY_ENTER) {
-        this->eval();
+        this->eval(this->text);
     }
 }
 

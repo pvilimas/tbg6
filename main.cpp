@@ -9,6 +9,16 @@ int main() {
     auto game = new Game("textbasedgame", 640, 460);
 
     game->Init();
-    game->Run();
+    while (true) {
+        try {
+            game->Run();
+        } catch (Game::ExitGameException e) {
+            break;
+        } catch (Game::RestartGameException e) {
+            game->Reset();
+            continue;
+        }
+    }
+    
     game->Destroy();
 }
