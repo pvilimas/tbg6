@@ -1,14 +1,16 @@
 #include "game.hpp"
 
-Game::Game(string win_title, int win_width, int win_height) {
+Game::Game(string win_title, int win_width, int win_height) : textarea(0, win_height-100, win_width, 100, [this](string s) { this->SetState(STATE_GAMEPLAY); }) {
     this->win_title = win_title;
     this->win_width = win_width;
     this->win_height = win_height;
+    this->state = STATE_TITLE;
+    this->textarea.SetText("You are now on\nthe title screen.");
 }
 
-void Game::init() {
+void Game::Init() {
+    SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
     InitWindow(this->win_width, this->win_height, this->win_title.c_str());
-    SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(60);
 
     auto img = LoadImage("assets/a.png");
@@ -16,30 +18,57 @@ void Game::init() {
     UnloadImage(img);
 }
 
-void Game::run() {
-    auto t = TextArea(0, this->win_height-100, this->win_width, 100);
+void Game::Run() {
     while (!WindowShouldClose()) {
-        BeginDrawing();
-
-        ClearBackground(RAYWHITE);
-        DrawTexture(this->texture, 0, 0, WHITE);
-        t.draw();
-        auto keys = Game::keys_pressed();
-        for (int i = 0; i < keys.size(); i++) {
-            t.addchar(keys[i]);
-        }
-        
-        EndDrawing();
+        this->Draw();
     }
 }
 
-void Game::destroy() {
+void Game::Destroy() {
     UnloadTexture(this->texture);
     CloseWindow();
     delete this;
 }
 
-vector<KeyboardKey> Game::keys_pressed(void) {
+void Game::Draw() {
+    BeginDrawing();
+
+    switch (this->state) {
+    
+        case STATE_TITLE:
+        case STATE_GAMEPLAY: {
+            DrawTexture(this->texture, 0, 0, WHITE);
+            this->textarea.Draw();
+            auto keys = Game::GetKeysPressed();
+            for (KeyboardKey& k : keys) {
+                this->textarea.AddChar(k);
+            }
+
+            break;
+        }
+        
+        default: break;
+    }
+    
+    EndDrawing();
+}
+
+/* 
+    Contains initialization logic for each state
+*/
+void Game::SetState(GameState new_state) {
+
+    auto old_state = this->state;
+
+    // if starting the game
+    if (old_state == STATE_TITLE && new_state == STATE_GAMEPLAY) {
+        this->textarea.SetText("You are now on\nthe gameplay screen.");
+    }
+
+    this->state = new_state;
+}
+
+vector<KeyboardKey> Game::GetKeysPressed(void) {
     vector<KeyboardKey> keys;
     for (int k = KEY_A; k < KEY_Z; k++) {
         if (IsKeyPressed(k)) {
@@ -50,6 +79,8 @@ vector<KeyboardKey> Game::keys_pressed(void) {
         keys.push_back(KEY_BACKSPACE);
     } else if (IsKeyPressed(KEY_SPACE)) {
         keys.push_back(KEY_SPACE);
+    } else if (IsKeyPressed(KEY_ENTER)) {
+        keys.push_back(KEY_ENTER);
     }
     return keys;
 }

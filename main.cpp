@@ -8,7 +8,7 @@ int main() {
 
     auto game = new Game("textbasedgame", 640, 460);
 
-    game->init();
-    game->run();
-    game->destroy();
+    game->Init();
+    game->Run();
+    game->Destroy();
 }

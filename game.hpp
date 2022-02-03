@@ -11,18 +11,36 @@
 using namespace std;
 
 class Game {
+
+    public:
+
+    typedef enum {
+        STATE_TITLE,
+        STATE_GAMEPLAY
+    } GameState;
+
+    private:
+
     string win_title;
     int win_width, win_height;
     Texture2D texture;
+    TextArea textarea;
+
+    GameState state;
 
     public:
+    
     Game(string win_title, int win_width, int win_height);
     
-    void init();
-    void run();
-    void destroy();
+    void Init();
+    void Run();
+    void Destroy();
 
-    static vector<KeyboardKey> keys_pressed();
+    void Draw();
+
+    void SetState(GameState new_state);
+
+    static vector<KeyboardKey> GetKeysPressed();
     
 };
 
