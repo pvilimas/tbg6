@@ -50,7 +50,8 @@ using std::vector;
         - sell/trade items
         - talk to them
         - dialog tree like before
-    - 
+    - typing suggestions (autofill with tab maybe)
+    - a useful help cmd 
 
 */
 

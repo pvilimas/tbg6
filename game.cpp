@@ -36,9 +36,9 @@ void Game::Draw() {
     BeginDrawing();
 
     switch (this->state) {
-    
+
         case GameState::Title:
-        case GameState::Gameplay:
+        case GameState::Gameplay: {
             DrawTexture(this->texture, 0, 0, WHITE);
             this->textarea.Draw();
             auto keys = Game::GetKeysPressed();
@@ -47,6 +47,7 @@ void Game::Draw() {
             }
 
             break;
+        }
         
         default: break;
     }
