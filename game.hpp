@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "raylib.h"
+#include "raylib++/raylib-cpp.hpp"
 
 #include "textarea.hpp"
 
