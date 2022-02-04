@@ -4,7 +4,7 @@ Game::Game(string win_title, int win_width, int win_height) : textarea(0, win_he
     this->win_title = win_title;
     this->win_width = win_width;
     this->win_height = win_height;
-    this->state = STATE_TITLE;
+    this->state = GameState::Title;
     this->textarea.SetText("You are now on\nthe title screen.");
 }
 
@@ -37,8 +37,8 @@ void Game::Draw() {
 
     switch (this->state) {
     
-        case STATE_TITLE:
-        case STATE_GAMEPLAY: {
+        case GameState::Title:
+        case GameState::Gameplay:
             DrawTexture(this->texture, 0, 0, WHITE);
             this->textarea.Draw();
             auto keys = Game::GetKeysPressed();
@@ -47,7 +47,6 @@ void Game::Draw() {
             }
 
             break;
-        }
         
         default: break;
     }
@@ -63,7 +62,7 @@ void Game::SetState(GameState new_state) {
     auto old_state = this->state;
 
     // if starting the game
-    if (old_state == STATE_TITLE && new_state == STATE_GAMEPLAY) {
+    if (old_state == GameState::Title && new_state == GameState::Gameplay) {
         this->textarea.SetText("You are now on\nthe gameplay screen.");
     }
 
@@ -72,7 +71,7 @@ void Game::SetState(GameState new_state) {
 
 void Game::EvalText(string text) {
     if (text == "start") {
-        this->SetState(STATE_GAMEPLAY);
+        this->SetState(GameState::Gameplay);
     } else if (text == "quit") {
         throw ExitGameException();
     }

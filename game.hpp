@@ -17,10 +17,10 @@ class Game {
         class ExitGameException {};
         class RestartGameException {};
 
-        typedef enum {
-            STATE_TITLE,
-            STATE_GAMEPLAY
-        } GameState;
+        enum class GameState {
+            Title,
+            Gameplay
+        };
 
     private:
 
