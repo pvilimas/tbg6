@@ -7,7 +7,6 @@ using std::vector;
 /*
     TODO:
     
-    - add timers (for first thing below)
     - TextArea:
         - make holding keys work properly (IsKeyPressed/Down) - not too often but often enough
         - add support for more characters (!@#$%^&*(), 0-9, ~`_+-={}[]|\:";'<>?,./`")
@@ -19,6 +18,8 @@ using std::vector;
         - game failsafe commands that match everything
     - game commands:
         - q(uit)?, exit, help
+    - Game
+        - EvalText command should search the list of commands
     - Room:
         - NSEW to start off
         - some sort of data structure, probably a Directions class which holds dir attrs for each
@@ -40,7 +41,7 @@ using std::vector;
         - takeItem, dropItem, hasItem
             - correct error messages "you are/you're not holding that!"
     - Game
-        - error messages - lots of them
+        - collection of error messages - lots of them
 
     ...
 

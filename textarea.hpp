@@ -10,20 +10,22 @@ using namespace std;
 
 class TextArea {
     
+    private:
+
     int x, y, width, height;
     string text;
-    function <void(string)> eval;
+    function<void(string)> eval;
     
     // displayed at the start of lines
     static const string prompt;
     
     public:
     
-    TextArea(int x, int y, int width, int height, function<void(string)> eval);
-    
-    void Draw();
-    void AddChar(KeyboardKey k);
-    void SetText(string text);
+        TextArea(int x, int y, int width, int height, function<void(string)> eval);
+        
+        void Draw();
+        void AddChar(KeyboardKey k);
+        void SetText(string text);
 };
 
 #endif /* __TEXTAREA_HEADER__ */

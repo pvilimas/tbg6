@@ -14,38 +14,38 @@ class Game {
 
     public:
 
-    class ExitGameException {};
-    class RestartGameException {};
+        class ExitGameException {};
+        class RestartGameException {};
 
-    typedef enum {
-        STATE_TITLE,
-        STATE_GAMEPLAY
-    } GameState;
+        typedef enum {
+            STATE_TITLE,
+            STATE_GAMEPLAY
+        } GameState;
 
     private:
 
-    string win_title;
-    int win_width, win_height;
-    Texture2D texture;
-    TextArea textarea;
+        string win_title;
+        int win_width, win_height;
+        Texture2D texture;
+        TextArea textarea;
 
-    GameState state;
+        GameState state;
 
     public:
     
-    Game(string win_title, int win_width, int win_height);
-    
-    void Init();
-    void Run();
-    void Reset();
-    void Destroy();
+        Game(string win_title, int win_width, int win_height);
+        
+        void Init();
+        void Run();
+        void Reset();
+        void Destroy();
 
-    void Draw();
+        void Draw();
 
-    void SetState(GameState new_state);
-    void EvalText(string text);
+        void SetState(GameState new_state);
+        void EvalText(string text);
 
-    static vector<KeyboardKey> GetKeysPressed();
+        static vector<KeyboardKey> GetKeysPressed();
     
 };
 
