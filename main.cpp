@@ -8,7 +8,7 @@ using std::vector;
     TODO:
     
     - TextArea:
-        - make holding keys work properly (IsKeyPressed/Down) - not too often but often enough
+        - make holding keys work properly (w/ timers) (IsKeyPressed/Down) - not too often but often enough
         - add support for more characters (!@#$%^&*(), 0-9, ~`_+-={}[]|\:";'<>?,./`")
         - have a caps variable to detect caps lock (or just check with the OS if it's on)
         - \t for tab
