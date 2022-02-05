@@ -1,15 +1,17 @@
 #include "utils.hpp"
 
-utils::Timer::Timer(float interval, function<void()> callback) {
+const std::function<void()> utils::Timer::defaultCallback = []{};
+
+utils::Timer::Timer(float interval, std::function<void()> callback) {
     this->interval = interval;
-    this->lastRecorded = 0.0f;
+    this->lastRecorded = 0;
     this->callback = callback;
 }
 
 /* returns true if an interval has passed, then resets the interval */
 bool utils::Timer::IntervalPassed() {
     float newTime = GetTime();
-    if (newTime - this->lastRecorded >= this->interval) {
+    if (this->lastRecorded + this->interval <= newTime) {
         this->lastRecorded = newTime;
         return true;
     }
@@ -17,8 +19,8 @@ bool utils::Timer::IntervalPassed() {
 }
 
 /* calls the callback if needed */
-void utils::Timer::CheckTimer() {
-    if (this.TimeIntervalPassed()) {
+void utils::Timer::CheckTime() {
+    if (this->IntervalPassed()) {
         this->callback();
     }
 }

@@ -1,8 +1,11 @@
 #include "graphics.hpp"
 
 const std::string graphics::TextArea::prompt = "> ";
+const float graphics::TextArea::cursorBlinkInterval = 0.8f;
+const float graphics::TextArea::keypressInterval = 0.05f;
 
-graphics::TextArea::TextArea(int x, int y, int width, int height, std::function<void(std::string)> eval) {
+graphics::TextArea::TextArea(int x, int y, int width, int height, std::function<void(std::string)> eval)
+    : keypressTimer(graphics::TextArea::keypressInterval) {
     this->x = x;
     this->y = y;
     this->width = width;
@@ -26,7 +29,7 @@ void graphics::TextArea::AddChar(KeyboardKey k) {
         }
     } else if (k == KEY_SPACE) {
         this->text += (char)k;
-    } else if (k == KEY_BACKSPACE) {
+    } else if (k == KEY_BACKSPACE && this->text.size() > 0) {
         this->text.pop_back();
         // strip text
         if (this->text.back() == '\n') {
@@ -34,6 +37,8 @@ void graphics::TextArea::AddChar(KeyboardKey k) {
         }
     } else if (k == KEY_ENTER) {
         this->eval(this->text);
+    } else if (k == KEY_ESCAPE) {
+        exit(1);
     }
 }
 

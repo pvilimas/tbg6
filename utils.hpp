@@ -1,9 +1,13 @@
 #ifndef __UTILS_HEADER__
 #define __UTILS_HEADER__
 
+#include <iostream>
+
 #include "raylib.h"
 
 namespace utils {
+    using namespace std;
+
     class Timer {
         private:
             
@@ -13,11 +17,14 @@ namespace utils {
 
         public:
 
-            Timer(float interval, std::function<void()> callback);
+            static const function<void()> defaultCallback;
+
+            Timer(float interval, function<void()> callback = utils::Timer::defaultCallback);
             bool IntervalPassed();
             void CheckTime();
             void Reset();
-    }
+    };
+
 }
 
 #endif /* __UTILS_HEADER__ */

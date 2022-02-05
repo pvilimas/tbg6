@@ -6,25 +6,35 @@
 
 #include "raylib.h"
 
+#include "utils.hpp"
+
 namespace graphics {
+    using namespace std;
+    using namespace utils;
+
     class TextArea {
 
         private:
-
-            int x, y, width, height;
-            std::string text;
-            std::function<void(std::string)> eval;
             
             // displayed at the start of lines
-            static const std::string prompt;
+            static const string prompt;
+            static const float cursorBlinkInterval;
+            static const float keypressInterval;
+            
+            int x, y, width, height;
+            string text;
+            function<void(string)> eval;
+
+            Timer keypressTimer;
+            
         
         public:
         
-            TextArea(int x, int y, int width, int height, std::function<void(std::string)> eval);
+            TextArea(int x, int y, int width, int height, function<void(string)> eval);
             
             void Draw();
             void AddChar(KeyboardKey k);
-            void SetText(std::string text);
+            void SetText(string text);
     };
 }
 

@@ -12,7 +12,7 @@ using namespace std;
 using namespace graphics;
 
 class Game {
-
+    
     public:
 
         class ExitGameException {};

@@ -36,14 +36,17 @@ void Game::Destroy() {
 void Game::Draw() {
     BeginDrawing();
 
+    static Timer t = Timer(1.0, []{ cout << ":)" << endl; });
+
     switch (this->state) {
 
         case GameState::Title:
         case GameState::Gameplay: {
+            t.CheckTime();
+
             DrawTexture(this->texture, 0, 0, WHITE);
             this->textarea.Draw();
-            auto keys = Game::GetKeysPressed();
-            for (KeyboardKey& k : keys) {
+            for (KeyboardKey& k : Game::GetKeysPressed()) {
                 this->textarea.AddChar(k);
             }
 
@@ -82,15 +85,15 @@ void Game::EvalText(string text) {
 vector<KeyboardKey> Game::GetKeysPressed(void) {
     vector<KeyboardKey> keys;
     for (int k = KEY_A; k < KEY_Z; k++) {
-        if (IsKeyDown(k)) {
+        if (IsKeyPressed(k)) {
             keys.push_back((KeyboardKey)k);
         }
     }
-    if (IsKeyDown(KEY_BACKSPACE)) {
+    if (IsKeyPressed(KEY_BACKSPACE)) {
         keys.push_back(KEY_BACKSPACE);
-    } else if (IsKeyDown(KEY_SPACE)) {
+    } else if (IsKeyPressed(KEY_SPACE)) {
         keys.push_back(KEY_SPACE);
-    } else if (IsKeyDown(KEY_ENTER)) {
+    } else if (IsKeyPressed(KEY_ENTER)) {
         keys.push_back(KEY_ENTER);
     }
     return keys;
