@@ -5,7 +5,7 @@ Game::Game(string win_title, int win_width, int win_height) : textarea(0, win_he
     this->win_width = win_width;
     this->win_height = win_height;
     this->state = GameState::Title;
-    this->textarea.SetText("You are now on\nthe title screen.");
+    this->textarea.SetText("title screen");
 }
 
 void Game::Init() {
@@ -14,7 +14,7 @@ void Game::Init() {
     SetExitKey(KEY_ESCAPE);
     SetTargetFPS(60);
 
-    auto img = LoadImage("assets/a.png");
+    Image img = LoadImage("assets/a.png");
     this->texture = LoadTextureFromImage(img);
     UnloadImage(img);
 }
@@ -36,13 +36,10 @@ void Game::Destroy() {
 void Game::Draw() {
     BeginDrawing();
 
-    static Timer t = Timer(1.0, []{ cout << ":)" << endl; });
-
     switch (this->state) {
 
         case GameState::Title:
         case GameState::Gameplay: {
-            t.CheckTime();
 
             DrawTexture(this->texture, 0, 0, WHITE);
             this->textarea.Draw();
@@ -64,11 +61,11 @@ void Game::Draw() {
 */
 void Game::SetState(GameState new_state) {
 
-    auto old_state = this->state;
+    GameState old_state = this->state;
 
     // if starting the game
     if (old_state == GameState::Title && new_state == GameState::Gameplay) {
-        this->textarea.SetText("You are now on\nthe gameplay screen.");
+        this->textarea.SetText("gameplay screen");
     }
 
     this->state = new_state;
@@ -85,15 +82,15 @@ void Game::EvalText(string text) {
 vector<KeyboardKey> Game::GetKeysPressed(void) {
     vector<KeyboardKey> keys;
     for (int k = KEY_A; k < KEY_Z; k++) {
-        if (IsKeyPressed(k)) {
+        if (IsKeyDown(k)) {
             keys.push_back((KeyboardKey)k);
         }
     }
-    if (IsKeyPressed(KEY_BACKSPACE)) {
+    if (IsKeyDown(KEY_BACKSPACE)) {
         keys.push_back(KEY_BACKSPACE);
-    } else if (IsKeyPressed(KEY_SPACE)) {
+    } else if (IsKeyDown(KEY_SPACE)) {
         keys.push_back(KEY_SPACE);
-    } else if (IsKeyPressed(KEY_ENTER)) {
+    } else if (IsKeyDown(KEY_ENTER)) {
         keys.push_back(KEY_ENTER);
     }
     return keys;
