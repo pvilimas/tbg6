@@ -6,9 +6,10 @@
 
 #include "raylib.h"
 
-#include "textarea.hpp"
+#include "graphics.hpp"
 
 using namespace std;
+using namespace graphics;
 
 class Game {
 
@@ -33,6 +34,8 @@ class Game {
 
     public:
     
+        static vector<KeyboardKey> GetKeysPressed();
+
         Game(string win_title, int win_width, int win_height);
         
         void Init();
@@ -44,8 +47,6 @@ class Game {
 
         void SetState(GameState new_state);
         void EvalText(string text);
-
-        static vector<KeyboardKey> GetKeysPressed();
     
 };
 

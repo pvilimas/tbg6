@@ -11,6 +11,7 @@ Game::Game(string win_title, int win_width, int win_height) : textarea(0, win_he
 void Game::Init() {
     SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
     InitWindow(this->win_width, this->win_height, this->win_title.c_str());
+    SetExitKey(KEY_ESCAPE);
     SetTargetFPS(60);
 
     auto img = LoadImage("assets/a.png");
@@ -81,15 +82,15 @@ void Game::EvalText(string text) {
 vector<KeyboardKey> Game::GetKeysPressed(void) {
     vector<KeyboardKey> keys;
     for (int k = KEY_A; k < KEY_Z; k++) {
-        if (IsKeyPressed(k)) {
+        if (IsKeyDown(k)) {
             keys.push_back((KeyboardKey)k);
         }
     }
-    if (IsKeyPressed(KEY_BACKSPACE)) {
+    if (IsKeyDown(KEY_BACKSPACE)) {
         keys.push_back(KEY_BACKSPACE);
-    } else if (IsKeyPressed(KEY_SPACE)) {
+    } else if (IsKeyDown(KEY_SPACE)) {
         keys.push_back(KEY_SPACE);
-    } else if (IsKeyPressed(KEY_ENTER)) {
+    } else if (IsKeyDown(KEY_ENTER)) {
         keys.push_back(KEY_ENTER);
     }
     return keys;

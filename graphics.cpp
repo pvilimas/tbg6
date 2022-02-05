@@ -1,8 +1,8 @@
-#include "textarea.hpp"
+#include "graphics.hpp"
 
-const string TextArea::prompt = "> ";
+const std::string graphics::TextArea::prompt = "> ";
 
-TextArea::TextArea(int x, int y, int width, int height, function<void(string)> eval) {
+graphics::TextArea::TextArea(int x, int y, int width, int height, std::function<void(std::string)> eval) {
     this->x = x;
     this->y = y;
     this->width = width;
@@ -11,12 +11,12 @@ TextArea::TextArea(int x, int y, int width, int height, function<void(string)> e
     this->eval = eval;
 }
 
-void TextArea::Draw() {
+void graphics::TextArea::Draw() {
     DrawRectangle(this->x, this->y, this->width, this->height, BLACK);
     DrawText((prompt + this->text).c_str(), x, y, 20, WHITE);
 }
 
-void TextArea::AddChar(KeyboardKey k) {
+void graphics::TextArea::AddChar(KeyboardKey k) {
     if (KEY_A <= k && k <= KEY_Z) {
         if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT)) {
             this->text += (char)k;
@@ -37,6 +37,6 @@ void TextArea::AddChar(KeyboardKey k) {
     }
 }
 
-void TextArea::SetText(string text) {
+void graphics::TextArea::SetText(std::string text) {
     this->text = text;
 }

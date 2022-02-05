@@ -1,12 +1,14 @@
 #include "game.hpp"
-#include "textarea.hpp"
+#include "graphics.hpp"
 
 using namespace std;
 using std::vector;
 
 /*
     TODO:
-    
+
+    - blinking cursor
+
     - TextArea:
         - make holding keys work properly (w/ timers) (IsKeyPressed/Down) - not too often but often enough
         - add support for more characters (!@#$%^&*(), 0-9, ~`_+-={}[]|\:";'<>?,./`")
