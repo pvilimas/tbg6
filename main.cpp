@@ -7,8 +7,6 @@ using std::vector;
 /*
     TODO:
 
-    - blinking cursor
-
     - TextArea:
         - make holding keys work properly (w/ timers) (IsKeyPressed/Down) - not too often but often enough
         - add support for more characters (!@#$%^&*(), 0-9, ~`_+-={}[]|\:";'<>?,./`")
@@ -47,6 +45,7 @@ using std::vector;
 
     ...
 
+    - make timers exact (frametime?)
     - start designing the game itself - a demo can only go so far without an idea
     - NPCs (definitely fucking do this one at some point)
         - sell/trade items
@@ -59,7 +58,7 @@ using std::vector;
 
 int main() {
 
-    auto game = new Game("textbasedgame", 640, 460);
+    Game *game = new Game("textbasedgame", 640, 460);
 
     game->Init();
     while (true) {
