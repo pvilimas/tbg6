@@ -12,7 +12,7 @@ namespace graphics {
     using namespace std;
     using namespace utils;
 
-    class TextArea {
+    class TextBox {
 
         private:
 
@@ -31,7 +31,7 @@ namespace graphics {
         
         public:
         
-            TextArea(int x, int y, int width, int height, function<void(string)> eval);
+            TextBox(int x, int y, int width, int height, function<void(string)> eval);
             
             void Draw();
             void AddChar(KeyboardKey k, bool shift);

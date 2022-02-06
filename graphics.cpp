@@ -1,11 +1,11 @@
 #include "graphics.hpp"
 
-const std::string graphics::TextArea::prompt = "> ";
-const float graphics::TextArea::cursorBlinkInterval = 0.8;
-const float graphics::TextArea::keypressInterval = 0.1f;
+const std::string graphics::TextBox::prompt = "> ";
+const float graphics::TextBox::cursorBlinkInterval = 0.8;
+const float graphics::TextBox::keypressInterval = 0.1f;
 
-graphics::TextArea::TextArea(int x, int y, int width, int height, std::function<void(std::string)> eval)
-    : keypressTimer(graphics::TextArea::keypressInterval) {
+graphics::TextBox::TextBox(int x, int y, int width, int height, std::function<void(std::string)> eval)
+    : keypressTimer(graphics::TextBox::keypressInterval) {
     this->x = x;
     this->y = y;
     this->width = width;
@@ -15,7 +15,7 @@ graphics::TextArea::TextArea(int x, int y, int width, int height, std::function<
     this->cursorPos = 0;
 }
 
-void graphics::TextArea::Draw() {
+void graphics::TextBox::Draw() {
 
     DrawRectangle(this->x, this->y, this->width, this->height, BLACK);
     DrawText((prompt + this->text).c_str(), x, y, 20, WHITE);
@@ -33,9 +33,9 @@ void graphics::TextArea::Draw() {
 
 }
 
-void graphics::TextArea::AddChar(KeyboardKey k, bool shift) {
+void graphics::TextBox::AddChar(KeyboardKey k, bool shift) {
     /* backspace */
-    if (k == KEY_BACKSPACE && this->text.size() > 0) {
+    if (k == KEY_BACKSPACE && this->text.size() > 0 && this->cursorPos > 0) {
         //this->text.pop_back();
         this->text.erase(this->text.begin() + this->cursorPos-1);
         this->cursorPos--;
@@ -71,6 +71,6 @@ void graphics::TextArea::AddChar(KeyboardKey k, bool shift) {
     }
 }
 
-void graphics::TextArea::SetText(std::string text) {
+void graphics::TextBox::SetText(std::string text) {
     this->text = text;
 }

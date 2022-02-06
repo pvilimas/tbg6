@@ -30,7 +30,7 @@ class Game {
         string win_title;
         int win_width, win_height;
         Texture2D texture;
-        TextArea textarea;
+        TextBox textbox;
 
         GameState state;
 
