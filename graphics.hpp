@@ -15,7 +15,7 @@ namespace graphics {
     class TextArea {
 
         private:
-            
+
             // displayed at the start of lines
             static const string prompt;
             static const float cursorBlinkInterval;
@@ -33,7 +33,7 @@ namespace graphics {
             TextArea(int x, int y, int width, int height, function<void(string)> eval);
             
             void Draw();
-            void AddChar(KeyboardKey k);
+            void AddChar(KeyboardKey k, bool shift);
             void SetText(string text);
     };
 }

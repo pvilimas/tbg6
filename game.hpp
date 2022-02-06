@@ -1,6 +1,8 @@
 #ifndef __GAME_HEADER__
 #define __GAME_HEADER__
 
+#include <algorithm>
+#include <array>
 #include <iostream>
 #include <vector>
 
@@ -47,7 +49,6 @@ class Game {
 
         void SetState(GameState new_state);
         void EvalText(string text);
-    
 };
 
 #endif /* __GAME_HEADER__ */

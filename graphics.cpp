@@ -32,27 +32,30 @@ void graphics::TextArea::Draw() {
 
 }
 
-void graphics::TextArea::AddChar(KeyboardKey k) {
+void graphics::TextArea::AddChar(KeyboardKey k, bool shift) {
+    // !@#$%^&*(), 0-9, ~`_+-={}[]|\:";'<>?,./`"
     if (this->keypressTimer.IntervalPassed()) {
-        if (KEY_A <= k && k <= KEY_Z) {
-            if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT)) {
-                this->text += (char)k;
-            } else {
-                // uppercase
-                this->text += (char)k + 32;
-            }
-        } else if (k == KEY_SPACE) {
-            this->text += (char)k;
-        } else if (k == KEY_BACKSPACE && this->text.size() > 0) {
+        /* backspace */
+        if (k == KEY_BACKSPACE && this->text.size() > 0) {
             this->text.pop_back();
-            // strip text
-            if (this->text.back() == '\n') {
-                this->text.pop_back();
-            }
-        } else if (k == KEY_ENTER) {
+            return;
+        }
+        /* enter */
+        else if (k == KEY_ENTER) {
             this->eval(this->text);
-        } else if (k == KEY_ESCAPE) {
-            exit(1);
+        }
+        /* escape */
+        else if (k == KEY_ESCAPE) {
+            exit(0);
+        }
+        /* ignore these, already accounted for */
+        else if (k == KEY_LEFT_SHIFT || k == KEY_RIGHT_SHIFT) {}
+        /* everything else */
+        else {
+            // use .at() here (not operator[]) to avoid error
+            try {
+                this->text += ((shift) ? utils::keyChars.at(k).shift : utils::keyChars.at(k).normal);
+            } catch (out_of_range e) {}
         }
     }
 }

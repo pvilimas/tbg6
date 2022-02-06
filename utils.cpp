@@ -25,7 +25,6 @@ void utils::Timer::CheckTime() {
     }
 }
 
-
 void utils::Timer::Reset() {
     this->lastRecorded = 0;
 }

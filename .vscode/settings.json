@@ -48,7 +48,8 @@
         "streambuf": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "timer.h": "c"
+        "timer.h": "c",
+        "map": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

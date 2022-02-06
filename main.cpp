@@ -8,10 +8,10 @@ using std::vector;
     TODO:
 
     - TextArea:
-        - make holding keys work properly (w/ timers) (IsKeyPressed/Down) - not too often but often enough
         - add support for more characters (!@#$%^&*(), 0-9, ~`_+-={}[]|\:";'<>?,./`")
         - have a caps variable to detect caps lock (or just check with the OS if it's on)
         - \t for tab
+        - cursor position (support for left right up down)
     - Command:
         - make the class
         - Command::Command(name, pattern, onCall) - like before
@@ -57,6 +57,8 @@ using std::vector;
 */
 
 int main() {
+
+    SetTraceLogLevel(LOG_WARNING);
 
     Game *game = new Game("textbasedgame", 640, 460);
 
