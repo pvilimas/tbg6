@@ -11,3 +11,10 @@ Command::Command(std::string name, std::string pattern, std::function<void()> on
 bool Command::IsMatch(std::string s) const {
     return regex_match(s, this->regex);
 }
+
+/* calls the above */
+void Command::TryMatch(std::string s) const {
+    if (this->IsMatch(s)) {
+        this->onMatch();
+    }
+}

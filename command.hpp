@@ -16,7 +16,10 @@ class Command {
 
         Command(std::string name, std::string pattern, std::function<void()> onMatch);
 
+        // must be const so doesn't throw error
+
         bool IsMatch(std::string s) const;
+        void TryMatch(std::string s) const;
 
 };
 

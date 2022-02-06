@@ -37,15 +37,20 @@ using std::vector;
 
     ...
 
-    - capslock/numpad/hold to delete text
-    - make timers exact (frametime?)
+    - capslock/numpad/hold backspace to delete text
+    - make timers exact (issue w/ frametime?)
     - start designing the game itself - a demo can only go so far without an idea
     - NPCs (definitely fucking do this one at some point)
         - sell/trade items
         - talk to them
         - dialog tree like before
     - typing suggestions (autofill with tab maybe)
-    - a (useful) help cmd 
+    - a (useful) help cmd
+
+    things to not do (for a while at least):
+    
+    - clickable NSEW buttons
+    - 
 
 */
 
