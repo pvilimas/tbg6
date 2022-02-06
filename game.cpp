@@ -1,6 +1,7 @@
 #include "game.hpp"
 
-Game::Game(string win_title, int win_width, int win_height) : textbox(0, win_height-100, win_width, 100, [&](string s) { this->EvalText(s); }) {
+Game::Game(string win_title, int win_width, int win_height)
+    : textbox(0, win_height-100, win_width, 100, [&](string s) { this->EvalText(s); }) {
     this->win_title = win_title;
     this->win_width = win_width;
     this->win_height = win_height;
@@ -77,10 +78,11 @@ void Game::SetState(GameState new_state) {
 }
 
 void Game::EvalText(string text) {
-    if (text == "start") {
-        this->SetState(GameState::Gameplay);
-    } else if (text == "quit") {
-        throw ExitGameException();
+    for (const Command& c : this->GetCommands()) {
+        if (c.IsMatch(text)) {
+            c.onMatch();
+            break;
+        }
     }
 }
 
@@ -106,4 +108,17 @@ vector<KeyboardKey> Game::GetKeysPressed(void) {
         }
     }
     return keys;
+}
+
+vector<Command> Game::GetCommands() {
+    vector<Command> commands;
+    
+    commands.push_back(Command("Start Game", "start( game)?", [&] { this->SetState(GameState::Gameplay); }));
+    commands.push_back(Command("Quit Game", "(quit)|(exit)( game)?", []{ throw ExitGameException(); }));
+
+    /* ... */
+
+    commands.push_back(Command("Failsafe: Unknown Command", ".*", []{}));
+    return commands;
+
 }

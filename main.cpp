@@ -7,11 +7,7 @@ using std::vector;
 /*
     TODO:
 
-    - TextArea:
-        - cursor position (support for left right up down)
     - Command:
-        - make the class
-        - Command::Command(name, pattern, onCall) - like before
         - game failsafe commands that match everything
     - game commands:
         - q(uit)?, exit, help
@@ -50,7 +46,7 @@ using std::vector;
         - talk to them
         - dialog tree like before
     - typing suggestions (autofill with tab maybe)
-    - a useful help cmd 
+    - a (useful) help cmd 
 
 */
 

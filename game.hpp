@@ -8,6 +8,7 @@
 
 #include "raylib.h"
 
+#include "command.hpp"
 #include "graphics.hpp"
 
 using namespace std;
@@ -34,9 +35,11 @@ class Game {
 
         GameState state;
 
+        vector<Command> GetCommands();
+        static vector<KeyboardKey> GetKeysPressed();
+
     public:
     
-        static vector<KeyboardKey> GetKeysPressed();
 
         Game(string win_title, int win_width, int win_height);
         
@@ -49,6 +52,7 @@ class Game {
 
         void SetState(GameState new_state);
         void EvalText(string text);
+
 };
 
 #endif /* __GAME_HEADER__ */

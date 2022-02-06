@@ -2,6 +2,7 @@
     "files.associations": {
         "*.pl": "prolog",
         "*.rb": "ruby",
+        "a": "plaintext",
         "iostream": "cpp",
         "ostream": "cpp",
         "ios": "cpp",
@@ -49,7 +50,12 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "timer.h": "c",
-        "map": "cpp"
+        "map": "cpp",
+        "regex": "cpp",
+        "cstring": "cpp",
+        "bitset": "cpp",
+        "ctime": "cpp",
+        "sstream": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
