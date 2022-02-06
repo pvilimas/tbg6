@@ -7,10 +7,9 @@ using std::vector;
 /*
     TODO:
 
-    - Command:
-        - game failsafe commands that match everything
-    - game commands:
-        - q(uit)?, exit, help
+    - some way for game to respond to commands (dialog box or whatever)
+    - game commands
+        - help
     - Game
         - EvalText command should search the list of commands
     - Room:

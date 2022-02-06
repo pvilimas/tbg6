@@ -10,7 +10,7 @@ Game::Game(string win_title, int win_width, int win_height)
 }
 
 void Game::Init() {
-    SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
+    SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE);
     InitWindow(this->win_width, this->win_height, this->win_title.c_str());
     SetExitKey(KEY_ESCAPE);
     SetTargetFPS(60);
@@ -113,10 +113,10 @@ vector<KeyboardKey> Game::GetKeysPressed(void) {
 vector<Command> Game::GetCommands() {
     vector<Command> commands;
     
-    commands.push_back(Command("Start Game", "start( game)?", [&] { this->SetState(GameState::Gameplay); }));
+    commands.push_back(Command("Start Game", "start( game)?", [&]{ this->SetState(GameState::Gameplay); }));
     commands.push_back(Command("Quit Game", "(quit)|(exit)( game)?", []{ throw ExitGameException(); }));
 
-    /* ... */
+    /* everything else will go here */
 
     commands.push_back(Command("Failsafe: Unknown Command", ".*", []{}));
     return commands;
