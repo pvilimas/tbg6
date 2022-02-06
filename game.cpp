@@ -46,7 +46,8 @@ void Game::Draw() {
 
             // handle input
             vector<KeyboardKey> keys = Game::GetKeysPressed();
-            bool shift = (find(keys.begin(), keys.end(), KEY_LEFT_SHIFT) != keys.end()) || (find(keys.begin(), keys.end(), KEY_RIGHT_SHIFT) != keys.end());
+            // keep this this way
+            bool shift = (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT));
             for (KeyboardKey& k : keys) {
                 this->textarea.AddChar(k, shift);
             }
@@ -99,7 +100,7 @@ vector<KeyboardKey> Game::GetKeysPressed(void) {
 
     for (int i = 0; i < (int)(sizeof(relevantKeys) / sizeof(int)); i++) {
         k = (KeyboardKey) relevantKeys[i];
-        if (IsKeyDown(k)) {
+        if (IsKeyPressed(k)) {
             keys.push_back(k);
         }
     }

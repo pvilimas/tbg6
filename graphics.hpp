@@ -23,6 +23,7 @@ namespace graphics {
             
             int x, y, width, height;
             string text;
+            int cursorPos;
             function<void(string)> eval;
 
             Timer keypressTimer;

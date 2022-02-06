@@ -8,9 +8,6 @@ using std::vector;
     TODO:
 
     - TextArea:
-        - add support for more characters (!@#$%^&*(), 0-9, ~`_+-={}[]|\:";'<>?,./`")
-        - have a caps variable to detect caps lock (or just check with the OS if it's on)
-        - \t for tab
         - cursor position (support for left right up down)
     - Command:
         - make the class
@@ -45,6 +42,7 @@ using std::vector;
 
     ...
 
+    - capslock/numpad/hold to delete text
     - make timers exact (frametime?)
     - start designing the game itself - a demo can only go so far without an idea
     - NPCs (definitely fucking do this one at some point)
