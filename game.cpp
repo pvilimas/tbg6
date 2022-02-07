@@ -1,20 +1,21 @@
 #include "game.hpp"
 
-Game::Game(string win_title, int win_width, int win_height)
-    : textbox(0, win_height-100, win_width, 100, [&](string s) { this->EvalText(s); }) {
-    this->win_title = win_title;
-    this->win_width = win_width;
-    this->win_height = win_height;
+Game::Game(string winTitle, int winWidth, int winHeight)
+    : textbox(0, winHeight-100, winWidth, 100, [&](string s) { this->EvalText(s); }) {
+    this->winTitle = winTitle;
+    this->winWidth = winWidth;
+    this->winHeight = winHeight;
     this->state = GameState::Title;
-    this->textbox.SetText("title screen");
+    this->textbox.SetGameText("title screen");
 }
 
 void Game::Init() {
     SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE);
-    InitWindow(this->win_width, this->win_height, this->win_title.c_str());
+    InitWindow(this->winWidth, this->winHeight, this->winTitle.c_str());
     SetExitKey(KEY_ESCAPE);
     SetTargetFPS(60);
 
+    // TODO: GameTexture
     Image img = LoadImage("assets/a.png");
     this->texture = LoadTextureFromImage(img);
     UnloadImage(img);
@@ -71,7 +72,7 @@ void Game::SetState(GameState new_state) {
 
     // if starting the game
     if (old_state == GameState::Title && new_state == GameState::Gameplay) {
-        this->textbox.SetText("gameplay screen");
+        this->textbox.SetGameText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
     }
 
     this->state = new_state;

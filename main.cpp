@@ -38,6 +38,7 @@ using std::vector;
     ...
 
     - capslock/numpad/hold backspace to delete text
+        - keyboard shortcuts to delete a word or a whole line
     - make timers exact (issue w/ frametime?)
     - start designing the game itself - a demo can only go so far without an idea
     - NPCs (definitely fucking do this one at some point)

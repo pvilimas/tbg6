@@ -28,8 +28,8 @@ class Game {
 
     private:
 
-        string win_title;
-        int win_width, win_height;
+        string winTitle;
+        int winWidth, winHeight;
         Texture2D texture;
         TextBox textbox;
 
@@ -41,7 +41,7 @@ class Game {
     public:
     
 
-        Game(string win_title, int win_width, int win_height);
+        Game(string winTitle, int winWidth, int winHeight);
         
         void Init();
         void Run();
