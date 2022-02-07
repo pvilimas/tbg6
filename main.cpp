@@ -8,6 +8,7 @@ using std::vector;
     TODO:
 
     - room commands onLook onEnter onFirstEnter
+    - room.GetCommands()
     - Game:
         - game loop, poll for input, check commands in order
             - Make the commands strictly ordered - ranges:

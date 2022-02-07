@@ -145,21 +145,26 @@ vector<KeyboardKey> Game::GetKeysPressed(void) {
 
 vector<Command> Game::GetCommands() {
     vector<Command> commands;
-    
-    commands.push_back(Command("Start Game", "start( game)?", [&]{ this->SetState(GameState::Gameplay); }));
-    commands.push_back(Command("Quit Game", "(quit)|(exit)( game)?", []{ throw ExitGameException(); }));
+    if (this->state == GameState::Title) {
+        commands.push_back(Command("Start Game", "start( game)?", [&]{ this->SetState(GameState::Gameplay); }));
+    }
+    commands.push_back(Command("Quit Game", "(q(uit)?)|(exit)( game)?", []{ throw ExitGameException(); }));
     commands.push_back(Command("Help", "help", [&]{ this->textbox.SetGameText(Game::Messages::Help); }));
 
     // direction commands
-
-    commands.push_back(Command("Go North", "(go )?n(orth)?", [&]{ this->TryMove(Room::Direction::North); }));
-    commands.push_back(Command("Go South", "(go )?s(outh)?", [&]{ this->TryMove(Room::Direction::South); }));
-    commands.push_back(Command("Go East", "(go )?e(ast)?", [&]{ this->TryMove(Room::Direction::East); }));
-    commands.push_back(Command("Go West", "(go )?w(est)?", [&]{ this->TryMove(Room::Direction::West); }));
+    if (this->state == GameState::Gameplay) {
+        commands.push_back(Command("Go North", "(go )?n(orth)?", [&]{ this->TryMove(Room::Direction::North); }));
+        commands.push_back(Command("Go South", "(go )?s(outh)?", [&]{ this->TryMove(Room::Direction::South); }));
+        commands.push_back(Command("Go East", "(go )?e(ast)?", [&]{ this->TryMove(Room::Direction::East); }));
+        commands.push_back(Command("Go West", "(go )?w(est)?", [&]{ this->TryMove(Room::Direction::West); }));
+    }
 
     /* everything else will go here */
 
-    commands.push_back(Command("Failsafe: Unknown Direction", "go.*", [&]{ this->textbox.SetGameText(Game::Messages::UnknownDirection); }));
+    if (this->state == GameState::Gameplay) {
+        commands.push_back(Command("Failsafe: Unknown Direction", "go.*", [&]{ this->textbox.SetGameText(Game::Messages::UnknownDirection); }));
+    }
+
     commands.push_back(Command("Failsafe: Unknown Command", ".*", [&]{ this->textbox.SetGameText(Game::Messages::UnknownCommand); }));
     return commands;
 
