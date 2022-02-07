@@ -1,10 +1,28 @@
 #include "game.hpp"
 
+Player::Player() {
+    this->currentRoom = nullptr;
+}
+
+Room* Player::GetRoom() {
+    return this->currentRoom;
+}
+
+void Player::SetRoom(Room* r) {
+    this->currentRoom = r;
+}
+
+void Player::Move(Room::Direction dir) {
+    this->SetRoom(this->currentRoom->GetPath(dir));
+}
+
+
 const string Game::Messages::GameStart = "You are now in the game.";
 const string Game::Messages::Title = "Game Title Will Go Here";
 const string Game::Messages::Help = "This is the help message.";
 const string Game::Messages::UnknownCommand = "Command not recognized.";
-
+const string Game::Messages::UnknownDirection = "Which way do you want to go?";
+const string Game::Messages::BlockedDirection = "You can't go that way!";
 
 Game::Game(string winTitle, int winWidth, int winHeight)
     : textbox(0, winHeight-100, winWidth, 100, [&](string s) { this->EvalText(s); }) {
@@ -124,9 +142,27 @@ vector<Command> Game::GetCommands() {
     commands.push_back(Command("Quit Game", "(quit)|(exit)( game)?", []{ throw ExitGameException(); }));
     commands.push_back(Command("Help", "help", [&]{ this->textbox.SetGameText(Game::Messages::Help); }));
 
+    // direction commands
+
+    commands.push_back(Command("Go North", "(go )?n(orth)?", [&]{ this->TryMove(Room::Direction::North); }));
+    commands.push_back(Command("Go South", "(go )?s(outh)?", [&]{ this->TryMove(Room::Direction::South); }));
+    commands.push_back(Command("Go East", "(go )?e(ast)?", [&]{ this->TryMove(Room::Direction::East); }));
+    commands.push_back(Command("Go West", "(go )?w(est)?", [&]{ this->TryMove(Room::Direction::West); }));
+
     /* everything else will go here */
 
+    commands.push_back(Command("Failsafe: Unknown Direction", "go.*", [&]{ this->textbox.SetGameText(Game::Messages::UnknownDirection); }));
     commands.push_back(Command("Failsafe: Unknown Command", ".*", [&]{ this->textbox.SetGameText(Game::Messages::UnknownCommand); }));
     return commands;
 
+}
+
+/* performs the failure check */
+void Game::TryMove(Room::Direction dir) {
+    Room *r = this->player.GetRoom()->GetPath(dir);
+    if (r == nullptr) {
+        this->textbox.SetGameText(Game::Messages::BlockedDirection);
+    } else {
+        this->player.Move(dir);
+    }
 }

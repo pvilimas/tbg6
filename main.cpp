@@ -7,15 +7,6 @@ using std::vector;
 /*
     TODO:
 
-    - game commands
-        - help
-    - Game
-        - EvalText command should search the list of commands
-    - Room:
-        - NSEW to start off
-        - some sort of data structure, probably a Directions class which holds dir attrs for each
-            linked to a room
-        - Command to match each direction
     - Game:
         - invent a starting room and an adjacent room
         - set up a Player class and game.player

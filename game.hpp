@@ -9,10 +9,25 @@
 #include "raylib.h"
 
 #include "command.hpp"
+#include "room.hpp"
 #include "graphics.hpp"
 
 using namespace std;
 using namespace graphics;
+
+class Player {
+    private:
+
+        Room* currentRoom;
+
+    public:
+
+        Player();
+
+        Room *GetRoom();
+        void SetRoom(Room* r);
+        void Move(Room::Direction dir);
+};
 
 class Game {
     
@@ -37,7 +52,11 @@ class Game {
                 // response to command "help"
                 Help,
                 // response to unknown command
-                UnknownCommand;
+                UnknownCommand,
+                // when a direction is unclear or missing
+                UnknownDirection,
+                // when the player can't go that way
+                BlockedDirection;
         };
 
     private:
@@ -46,8 +65,9 @@ class Game {
         int winWidth, winHeight;
         Texture2D texture;
         TextBox textbox;
-
         GameState state;
+        Player player;
+        vector<Room> rooms;
 
         vector<Command> GetCommands();
         static vector<KeyboardKey> GetKeysPressed();
@@ -66,6 +86,8 @@ class Game {
 
         void SetState(GameState new_state);
         void EvalText(string text);
+
+        void TryMove(Room::Direction dir);
 
 };
 
