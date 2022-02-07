@@ -49,7 +49,7 @@ namespace graphics {
             void SetPlayerText(string text);
             void SetGameText(string text);
 
-            vector<string> SplitText(string text);
+            queue<string> SplitText(string text);
     };
 }
 

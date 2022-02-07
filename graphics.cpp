@@ -65,6 +65,7 @@ void graphics::TextBox::AddChar(KeyboardKey k, bool shift) {
     /* enter */
     else if (k == KEY_ENTER) {
         this->eval(this->playerIn);
+        this->SetPlayerText("");
     }
     /* escape */
     else if (k == KEY_ESCAPE) {
@@ -94,6 +95,7 @@ void graphics::TextBox::AddChar(KeyboardKey k, bool shift) {
 
 void graphics::TextBox::SetPlayerText(std::string text) {
     this->playerIn = text;
+    this->cursorPos = text.size();
 }
 
 void graphics::TextBox::SetGameText(std::string text) {
@@ -106,27 +108,28 @@ void graphics::TextBox::SetGameText(std::string text) {
 
     //for (int i = graphics::TextBox::lineCount-1; i >= 0; i--) {
     for (int i = 0; i < graphics::TextBox::lineCount; i++) {
-        auto line = lines.back();
+        auto line = lines.front();
         for (char c : line) {
             this->charDispQueue.push(c);
         }
         this->charDispQueue.push('\n');
-        lines.pop_back();
+        lines.pop();
     }
 }
 
-std::vector<std::string> graphics::TextBox::SplitText(std::string text) {
+std::queue<std::string> graphics::TextBox::SplitText(std::string text) {
 
-    std::vector<std::string> res;
+    std::queue<std::string> res;
 
-    std::regex line_regex = std::regex("(.{1,55})(?:\\s|$)");
+    std::regex line_regex = std::regex("(.{1,60})(?:(\\s)+|$)");
 
     for (std::sregex_iterator i = std::sregex_iterator(text.begin(), text.end(), line_regex); i != std::sregex_iterator(); i++) {
-        res.push_back((*i).str());
+        res.push((*i).str());
     }
 
+    // pad it with empty lines
     while (res.size() < graphics::TextBox::lineCount) {
-        res.push_back("");
+        res.push("");
     }
 
     return res;

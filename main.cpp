@@ -7,7 +7,6 @@ using std::vector;
 /*
     TODO:
 
-    - some way for game to respond to commands (dialog box or whatever)
     - game commands
         - help
     - Game
