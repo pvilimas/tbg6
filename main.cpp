@@ -7,10 +7,9 @@ using std::vector;
 /*
     TODO:
 
+    - room commands onLook onEnter onFirstEnter
+
     - Game:
-        - invent a starting room and an adjacent room
-        - set up a Player class and game.player
-            - currentRoom
         - game loop, poll for input, check commands in order
             - Make the commands strictly ordered - ranges:
                 gamecommands = [npc cmds] + [room cmds] + [item cmds] + FAILSAFE1 + FS2 + [other failsafes] + MATCH_ALL

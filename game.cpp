@@ -43,6 +43,14 @@ void Game::Init() {
     Image img = LoadImage("assets/a.png");
     this->texture = LoadTextureFromImage(img);
     UnloadImage(img);
+
+    this->rooms.insert({
+        { "Kitchen", Room("Kitchen") },
+        { "Bedroom", Room("Bedroom") },
+    });
+
+    this->rooms.at("Kitchen").Link(this->rooms.at("Bedroom"), Room::Direction::North);
+    this->player.SetRoom(&this->rooms.at("Kitchen"));
 }
 
 void Game::Run() {
@@ -164,5 +172,6 @@ void Game::TryMove(Room::Direction dir) {
         this->textbox.SetGameText(Game::Messages::BlockedDirection);
     } else {
         this->player.Move(dir);
+        this->textbox.SetGameText("You went " + Room::DirToString[dir] + ". You are now in the " + r->GetName() + '.');
     }
 }

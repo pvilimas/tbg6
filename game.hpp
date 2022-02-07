@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <array>
 #include <iostream>
+#include <unordered_map>
 #include <vector>
 
 #include "raylib.h"
@@ -67,7 +68,7 @@ class Game {
         TextBox textbox;
         GameState state;
         Player player;
-        vector<Room> rooms;
+        unordered_map<string, Room> rooms;
 
         vector<Command> GetCommands();
         static vector<KeyboardKey> GetKeysPressed();
