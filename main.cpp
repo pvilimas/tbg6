@@ -36,6 +36,7 @@ using std::vector;
         - dialog tree like before
     - typing suggestions (autofill with tab maybe)
     - a (useful) help cmd
+    - SMW style pixel fadeout for the pics?
 
     things to not do (for a while at least):
     
