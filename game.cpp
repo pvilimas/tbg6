@@ -1,12 +1,18 @@
 #include "game.hpp"
 
+const string Game::Messages::GameStart = "You are now in the game.";
+const string Game::Messages::Title = "Game Title Will Go Here";
+const string Game::Messages::Help = "This is the help message.";
+const string Game::Messages::UnknownCommand = "Command not recognized.";
+
+
 Game::Game(string winTitle, int winWidth, int winHeight)
     : textbox(0, winHeight-100, winWidth, 100, [&](string s) { this->EvalText(s); }) {
     this->winTitle = winTitle;
     this->winWidth = winWidth;
     this->winHeight = winHeight;
     this->state = GameState::Title;
-    this->textbox.SetGameText("title screen");
+    this->textbox.SetGameText(Game::Messages::Title);
 }
 
 void Game::Init() {
@@ -72,7 +78,7 @@ void Game::SetState(GameState new_state) {
 
     // if starting the game
     if (old_state == GameState::Title && new_state == GameState::Gameplay) {
-        this->textbox.SetGameText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+        this->textbox.SetGameText(Game::Messages::GameStart);
     }
 
     this->state = new_state;
@@ -116,10 +122,11 @@ vector<Command> Game::GetCommands() {
     
     commands.push_back(Command("Start Game", "start( game)?", [&]{ this->SetState(GameState::Gameplay); }));
     commands.push_back(Command("Quit Game", "(quit)|(exit)( game)?", []{ throw ExitGameException(); }));
+    commands.push_back(Command("Help", "help", [&]{ this->textbox.SetGameText(Game::Messages::Help); }));
 
     /* everything else will go here */
 
-    commands.push_back(Command("Failsafe: Unknown Command", ".*", []{}));
+    commands.push_back(Command("Failsafe: Unknown Command", ".*", [&]{ this->textbox.SetGameText(Game::Messages::UnknownCommand); }));
     return commands;
 
 }

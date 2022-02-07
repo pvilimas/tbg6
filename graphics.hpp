@@ -6,7 +6,6 @@
 #include <queue>
 #include <regex>
 #include <string>
-#include <string_view>
 #include <thread>
 #include <vector>
 
@@ -28,7 +27,7 @@ namespace graphics {
             static constexpr float keypressInterval = 0.1;
             static constexpr float charDispInterval = 0.02;
             static constexpr int lineCount = 4;
-            static constexpr int lineLength = 55;
+            static constexpr int lineLength = 60;
             
             int x, y, width, height;
             string playerIn;

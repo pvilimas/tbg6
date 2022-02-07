@@ -26,6 +26,20 @@ class Game {
             Gameplay
         };
 
+        class Messages {
+            public:
+            
+            static const string
+                // displayed on the title screen
+                Title,
+                // when the player starts the game
+                GameStart,
+                // response to command "help"
+                Help,
+                // response to unknown command
+                UnknownCommand;
+        };
+
     private:
 
         string winTitle;
