@@ -8,7 +8,6 @@ using std::vector;
     TODO:
 
     - room commands onLook onEnter onFirstEnter
-
     - Game:
         - game loop, poll for input, check commands in order
             - Make the commands strictly ordered - ranges:
@@ -40,7 +39,6 @@ using std::vector;
     things to not do (for a while at least):
     
     - clickable NSEW buttons
-    - 
 
 */
 
