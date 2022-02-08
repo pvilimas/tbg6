@@ -7,6 +7,8 @@ using std::vector;
 /*
     TODO:
 
+    - switch from headers to modules
+
     - Item:
         - make this whole class
     - Room:
