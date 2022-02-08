@@ -48,8 +48,6 @@ class Game {
             static const string
                 // displayed on the title screen
                 Title,
-                // when the player starts the game
-                GameStart,
                 // response to command "help"
                 Help,
                 // response to unknown command

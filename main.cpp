@@ -7,12 +7,7 @@ using std::vector;
 /*
     TODO:
 
-    - room commands onLook onEnter onFirstEnter
-    - room.GetCommands()
-    - Game:
-        - game loop, poll for input, check commands in order
-            - Make the commands strictly ordered - ranges:
-                gamecommands = [npc cmds] + [room cmds] + [item cmds] + FAILSAFE1 + FS2 + [other failsafes] + MATCH_ALL
+    - fix segfault that happens when typing while text is displaying
     - Item:
         - make this whole class
     - Room:
@@ -23,9 +18,12 @@ using std::vector;
             - correct error messages "you are/you're not holding that!"
     - Game
         - collection of error messages - lots of them
+    - quit confirmation
 
     ...
 
+    - read a fucking style guide (esp. constructors - change the names)
+        - get rid of all the "this"
     - capslock/numpad/hold backspace to delete text
         - keyboard shortcuts to delete a word or a whole line
     - make timers exact (issue w/ frametime?)

@@ -16,8 +16,6 @@ void Player::Move(Room::Direction dir) {
     this->SetRoom(this->currentRoom->GetPath(dir));
 }
 
-
-const string Game::Messages::GameStart = "You are now in the game.";
 const string Game::Messages::Title = "Game Title Will Go Here";
 const string Game::Messages::Help = "This is the help message.";
 const string Game::Messages::UnknownCommand = "Command not recognized.";
@@ -45,12 +43,22 @@ void Game::Init() {
     UnloadImage(img);
 
     this->rooms.insert({
-        { "Kitchen", Room("Kitchen") },
-        { "Bedroom", Room("Bedroom") },
+        { "Kitchen", Room("Kitchen", Room::Messages {
+            .OnEnter = "You have entered the kitchen. ",
+            .OnFirstEnter = "You have entered the kitchen. Various pots and pans lay scattered throughout. ",
+            .OnStay = "You are in the kitchen. ",
+            .OnLook = "You are in the kitchen. Various pots and pans lay scattered throughout, and a red key sits next to the stove. ",
+        })},
+        { "Bedroom", Room("Bedroom", Room::Messages {
+            .OnEnter = "You have entered the bedroom. ",
+            .OnFirstEnter = "You have entered the bedroom. A queen size bed, neatly made, sits in the middle of the room. ",
+            .OnStay = "You are in the bedroom. ",
+            .OnLook = "You are in the bedroom. Across from the queen-size bed, you see a giant red door. ",
+        })},
     });
 
+    // link rooms
     this->rooms.at("Kitchen").Link(this->rooms.at("Bedroom"), Room::Direction::North);
-    this->player.SetRoom(&this->rooms.at("Kitchen"));
 }
 
 void Game::Run() {
@@ -104,7 +112,12 @@ void Game::SetState(GameState new_state) {
 
     // if starting the game
     if (old_state == GameState::Title && new_state == GameState::Gameplay) {
-        this->textbox.SetGameText(Game::Messages::GameStart);
+        Room& startingRoom = this->rooms.at("Kitchen");
+
+        this->player.SetRoom(&startingRoom);
+        startingRoom.Visit();
+        //this->textbox.SetGameText(startingRoom.GetMessages().OnStay);
+        this->textbox.SetGameText("You are in the kitchen. ");
     }
 
     this->state = new_state;
@@ -145,6 +158,9 @@ vector<KeyboardKey> Game::GetKeysPressed(void) {
 
 vector<Command> Game::GetCommands() {
     vector<Command> commands;
+
+
+    // game commands
     if (this->state == GameState::Title) {
         commands.push_back(Command("Start Game", "start( game)?", [&]{ this->SetState(GameState::Gameplay); }));
     }
@@ -157,6 +173,11 @@ vector<Command> Game::GetCommands() {
         commands.push_back(Command("Go South", "(go )?s(outh)?", [&]{ this->TryMove(Room::Direction::South); }));
         commands.push_back(Command("Go East", "(go )?e(ast)?", [&]{ this->TryMove(Room::Direction::East); }));
         commands.push_back(Command("Go West", "(go )?w(est)?", [&]{ this->TryMove(Room::Direction::West); }));
+    }
+
+    // room commands
+    if (this->state == GameState::Gameplay) {
+        commands.push_back(Command("Look Around", "look( around)?", [&]{ this->textbox.SetGameText(this->player.GetRoom()->GetMessages().OnLook); }));
     }
 
     /* everything else will go here */
@@ -177,6 +198,7 @@ void Game::TryMove(Room::Direction dir) {
         this->textbox.SetGameText(Game::Messages::BlockedDirection);
     } else {
         this->player.Move(dir);
-        this->textbox.SetGameText("You went " + Room::DirToString[dir] + ". You are now in the " + r->GetName() + '.');
+        this->textbox.SetGameText("You went " + Room::DirToString[dir] + ".\n" + this->player.GetRoom()->GetEnterMsg());
+        this->player.GetRoom()->Visit();
     }
 }

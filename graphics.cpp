@@ -65,7 +65,8 @@ void graphics::TextBox::AddChar(KeyboardKey k, bool shift) {
     /* enter */
     else if (k == KEY_ENTER) {
         this->eval(this->playerIn);
-        this->SetPlayerText("");
+        this->playerIn.clear();
+        this->cursorPos = 0;
     }
     /* escape */
     else if (k == KEY_ESCAPE) {
@@ -73,7 +74,7 @@ void graphics::TextBox::AddChar(KeyboardKey k, bool shift) {
     }
     /* ignore these, already accounted for */
     else if (k == KEY_LEFT_SHIFT || k == KEY_RIGHT_SHIFT) {}
-    /* arrow keys to control text */
+    /* arrow keys to control cursor pos */
     else if (k == KEY_UP) {
         this->cursorPos = 0;
     } else if (k == KEY_DOWN) {
@@ -103,6 +104,8 @@ void graphics::TextBox::SetGameText(std::string text) {
     for (std::string& str : this->gameOut) {
         str.clear();
     }
+    // clear the queue
+    this->charDispQueue = std::queue<char>();
 
     auto lines = this->SplitText(text);
 
@@ -110,7 +113,15 @@ void graphics::TextBox::SetGameText(std::string text) {
     for (int i = 0; i < graphics::TextBox::lineCount; i++) {
         auto line = lines.front();
         for (char c : line) {
-            this->charDispQueue.push(c);
+            if (c == '\n') {
+                i++;
+                if (i >= graphics::TextBox::lineCount) {
+                    // will break from both loops
+                    break;
+                }
+            } else {
+                this->charDispQueue.push(c);
+            }
         }
         this->charDispQueue.push('\n');
         lines.pop();
@@ -120,8 +131,7 @@ void graphics::TextBox::SetGameText(std::string text) {
 std::queue<std::string> graphics::TextBox::SplitText(std::string text) {
 
     std::queue<std::string> res;
-
-    std::regex line_regex = std::regex("(.{1,60})(?:(\\s)+|$)");
+    std::regex line_regex = std::regex("(.{1,58})(?:(\\s)+|$)");
 
     for (std::sregex_iterator i = std::sregex_iterator(text.begin(), text.end(), line_regex); i != std::sregex_iterator(); i++) {
         res.push((*i).str());

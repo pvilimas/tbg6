@@ -26,13 +26,14 @@ namespace graphics {
             static constexpr float cursorBlinkInterval = 0.8;
             static constexpr float keypressInterval = 0.1;
             static constexpr float charDispInterval = 0.02;
+            // how many lines the game text can hold
             static constexpr int lineCount = 4;
-            static constexpr int lineLength = 60;
+            static constexpr int lineLength = 58;
             
             int x, y, width, height;
+            int cursorPos;
             string playerIn;
             string gameOut[lineCount];
-            int cursorPos;
             function<void(string)> eval;
             queue<char> charDispQueue;
 
