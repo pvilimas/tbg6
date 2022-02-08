@@ -55,6 +55,11 @@ void graphics::TextBox::Draw() {
 }
 
 void graphics::TextBox::AddChar(KeyboardKey k, bool shift) {
+
+    if (!this->charDispQueue.empty()) {
+        return;
+    }
+
     /* backspace */
     if (k == KEY_BACKSPACE && this->playerIn.size() > 0 && this->cursorPos > 0) {
         //this->text.pop_back();

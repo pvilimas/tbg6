@@ -7,7 +7,6 @@ using std::vector;
 /*
     TODO:
 
-    - fix segfault that happens when typing while text is displaying
     - Item:
         - make this whole class
     - Room:
