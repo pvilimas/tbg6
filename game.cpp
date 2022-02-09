@@ -38,7 +38,7 @@ void Game::Init() {
     SetTargetFPS(60);
 
     // TODO: GameTexture
-    Image img = LoadImage("assets/a.png");
+    Image img = LoadImage("./assets/a.png");
     this->texture = LoadTextureFromImage(img);
     UnloadImage(img);
 
