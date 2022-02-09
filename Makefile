@@ -13,14 +13,16 @@ main: $(SRC)
 build: main #dist
 
 dist: clean build
-	@cp -rf ./assets dist/$(PLATFORM)/assets
+	@cp -rf ./assets dist/$(PLATFORM)/
 	@cp build/main dist/$(PLATFORM)/textbasedgame
 	@echo "Build completed for $(PLATFORM)"
 
 run: main
-	./build/main
+	@./build/main
 
 clean:
-	rm -f build/main
-	rm -rf build/*.dSYM
-	clear
+	@rm -f build/main
+	@rm -rf build/*.dSYM
+	@clear
+	@rm -rf dist/mac/*
+	@rm -rf dist/win/*
