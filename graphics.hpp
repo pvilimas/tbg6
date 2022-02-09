@@ -35,6 +35,8 @@ namespace graphics {
             string playerIn;
             string gameOut[lineCount];
             function<void(string)> eval;
+            // when space is pressed, autotype the rest of the message
+            bool purgeQueue;
             queue<char> charDispQueue;
 
             Timer keypressTimer;

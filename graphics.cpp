@@ -11,6 +11,7 @@ graphics::TextBox::TextBox(int x, int y, int width, int height, std::function<vo
     this->playerIn = "\0";
     this->eval = eval;
     this->cursorPos = 0;
+    this->purgeQueue = false;
 }
 
 void graphics::TextBox::Draw() {
@@ -30,13 +31,16 @@ void graphics::TextBox::Draw() {
     // pop from char queue
 
     if (!this->charDispQueue.empty()) {
-        char c = this->charDispQueue.front();
-        if (c == '\n') {
-            currLine++;
-        } else {
-            this->gameOut[currLine] += c;
-        }
-        this->charDispQueue.pop();
+        do {
+            char c = this->charDispQueue.front();
+            if (c == '\n') {
+                currLine++;
+            } else {
+                this->gameOut[currLine] += c;
+            }
+            this->charDispQueue.pop();
+        } while (!this->charDispQueue.empty() && this->purgeQueue);
+        this->purgeQueue = false;
     } else {
         currLine = 0;
     }
@@ -57,6 +61,7 @@ void graphics::TextBox::Draw() {
 void graphics::TextBox::AddChar(KeyboardKey k, bool shift) {
 
     if (!this->charDispQueue.empty()) {
+        this->purgeQueue = true;
         return;
     }
 
