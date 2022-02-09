@@ -40,7 +40,6 @@ class Room {
         Room* paths[Direction::Count];
         bool playerVisited;
         Room::Messages messages;
-        std::vector<Item> items;
     
     public:
 

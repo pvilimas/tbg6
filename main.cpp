@@ -7,7 +7,7 @@ using std::vector;
 /*
     TODO:
 
-    - switch from headers to modules
+    - clean up code as much as you can before doing anymore
 
     - Item:
         - make this whole class

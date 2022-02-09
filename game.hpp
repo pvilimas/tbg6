@@ -9,9 +9,9 @@
 
 #include "raylib.h"
 
+#include "item.hpp"
 #include "command.hpp"
 #include "room.hpp"
-#include "item.hpp"
 #include "graphics.hpp"
 
 using namespace std;
@@ -68,7 +68,6 @@ class Game {
         GameState state;
         Player player;
         unordered_map<string, Room> rooms;
-        unordered_map<string, Item> items;
 
         vector<Command> GetCommands();
         static vector<KeyboardKey> GetKeysPressed();

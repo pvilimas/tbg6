@@ -5,7 +5,7 @@ use this script to see how text will look displayed in the game to make sure it 
 """
 
 LINECOUNT = 4
-LINELENGTH = 60
+LINELENGTH = 58
 
 regex = fr"(.{{1,{LINELENGTH}}})(?:(\s)+|$)"
 

@@ -21,11 +21,10 @@ class Item {
     
     public:
 
-        Item(std::string _name);
+        Item(std::string _name, Item::ItemAttrs _attrs);
 
         std::vector<std::string> GetCommands();
 
 };
-
 
 #endif /* __ITEM_HEADER__ */

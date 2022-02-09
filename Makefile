@@ -1,7 +1,7 @@
 COMP = g++
-CFLAGS = -std=c++20 -Wall -Wextra -pedantic -O2 #-fsanitize=address -fsanitize=undefined -g
+CFLAGS = -std=c++20 -Wall -Wextra -pedantic -O2
 LFLAGS = -lm -Iinclude -lraylib
-SRC = main.cpp game.cpp command.cpp room.cpp graphics.cpp utils.cpp
+SRC = main.cpp game.cpp command.cpp item.cpp room.cpp graphics.cpp utils.cpp
 
 all: clean build run
 
