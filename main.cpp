@@ -1,6 +1,8 @@
 #include "game.hpp"
 #include "graphics.hpp"
 
+#include "raylib.h"
+
 using namespace std;
 using std::vector;
 
@@ -46,6 +48,8 @@ using std::vector;
 int main() {
 
     SetTraceLogLevel(LOG_WARNING);
+    ChangeDirectory(GetApplicationDirectory());
+    cout << GetWorkingDirectory() << endl;
 
     Game *game = new Game("textbasedgame", 640, 460);
 
