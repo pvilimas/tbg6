@@ -36,8 +36,8 @@ void Room::Link(Room& other, Room::Direction dir, bool bothways) {
     }
 }
 
-void Room::AddItem(Item item) {
-
+void Room::AddItem(Item& item) {
+    this->items.push_back(item);
 }
 
 std::string Room::GetName() {
