@@ -9,6 +9,11 @@ using std::vector;
 /*
     TODO:
 
+    - clean the code up before doing anything more
+
+
+
+    
     - Item:
         - make this whole class
     - Room:
