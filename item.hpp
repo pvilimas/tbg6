@@ -16,14 +16,18 @@ class Item {
 
     private:
 
-        std::string name;
-        Item::ItemAttrs attrs;
+        std::string _name;
+        std::string _repr;
+        Item::ItemAttrs _attrs;
     
     public:
 
-        Item(std::string _name, Item::ItemAttrs _attrs);
-
+        Item(std::string name, Item::ItemAttrs attrs);
+        
         std::vector<std::string> GetCommands();
+        
+        std::string repr();
+
 
 };
 

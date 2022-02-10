@@ -40,11 +40,15 @@ class Room {
         Room* paths[Direction::Count];
         bool playerVisited;
         Room::Messages messages;
+        std::vector<Item> items;
     
     public:
 
         Room(std::string name, Room::Messages messages);
+
         void Link(Room& other, Direction dir, bool bothways = true);
+        void AddItem(Item item);
+        
         Room* GetPath(Direction dir);
         std::string GetName();
 

@@ -21,14 +21,21 @@ class Player {
     private:
 
         Room* currentRoom;
+        vector<Item> inventory;
 
     public:
 
         Player();
 
-        Room *GetRoom();
-        void SetRoom(Room* r);
+        Room *GetCurrentRoom();
+        void SetCurrentRoom(Room* r);
         void Move(Room::Direction dir);
+
+        vector<Item> GetInv();
+
+        bool TryTakeItem(Item item);
+        bool TryDropItem(Item item);
+        
 };
 
 class Game {
@@ -88,6 +95,8 @@ class Game {
         void EvalText(string text);
 
         void TryMove(Room::Direction dir);
+        
+        string GetPlayerInvAsString();
 
 };
 

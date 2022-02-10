@@ -28,3 +28,14 @@ void utils::Timer::CheckTime() {
 void utils::Timer::Reset() {
     this->lastRecorded = 0;
 }
+
+std::string utils::join_strings(std::vector<std::string> v, std::string delim) {
+    std::string ret = "";
+    int i;
+    for (i = 0; i < v.size() - 1; i++) {
+        ret += v.at(i);
+        ret += delim;
+    }
+    ret += v.at(i);
+    return ret;
+}

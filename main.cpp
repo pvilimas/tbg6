@@ -49,21 +49,20 @@ int main() {
 
     SetTraceLogLevel(LOG_WARNING);
     ChangeDirectory(GetApplicationDirectory());
-    cout << GetWorkingDirectory() << endl;
 
-    Game *game = new Game("textbasedgame", 640, 460);
+    Game game("textbasedgame", 640, 460);
 
-    game->Init();
+    game.Init();
     while (true) {
         try {
-            game->Run();
+            game.Run();
         } catch (Game::ExitGameException e) {
             break;
         } catch (Game::RestartGameException e) {
-            game->Reset();
+            game.Reset();
             continue;
         }
     }
     
-    game->Destroy();
+    game.Destroy();
 }

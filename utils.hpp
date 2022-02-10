@@ -3,11 +3,14 @@
 
 #include <iostream>
 #include <map>
+#include <vector>
 
 #include "raylib.h"
 
 namespace utils {
     using namespace std;
+
+    string join_strings(vector<string> v, string delim);
 
     class Timer {
         private:

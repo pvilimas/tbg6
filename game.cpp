@@ -4,17 +4,30 @@ Player::Player() {
     this->currentRoom = nullptr;
 }
 
-Room* Player::GetRoom() {
+Room* Player::GetCurrentRoom() {
     return this->currentRoom;
 }
 
-void Player::SetRoom(Room* r) {
+void Player::SetCurrentRoom(Room* r) {
     this->currentRoom = r;
 }
 
 void Player::Move(Room::Direction dir) {
-    this->SetRoom(this->currentRoom->GetPath(dir));
+    this->SetCurrentRoom(this->currentRoom->GetPath(dir));
 }
+
+bool Player::TryTakeItem(Item item) {
+
+}
+
+bool Player::TryDropItem(Item item) {
+
+}
+
+vector<Item> Player::GetInv() {
+    return this->inventory;
+}
+
 
 const string Game::Messages::Title = "Game Title Will Go Here";
 const string Game::Messages::Help = "This is the help message.";
@@ -114,7 +127,7 @@ void Game::SetState(GameState new_state) {
     if (old_state == GameState::Title && new_state == GameState::Gameplay) {
         Room& startingRoom = this->rooms.at("Kitchen");
 
-        this->player.SetRoom(&startingRoom);
+        this->player.SetCurrentRoom(&startingRoom);
         startingRoom.Visit();
         //this->textbox.SetGameText(startingRoom.GetMessages().OnStay);
         this->textbox.SetGameText("You are in the kitchen. ");
@@ -166,6 +179,7 @@ vector<Command> Game::GetCommands() {
     }
     commands.push_back(Command("Quit Game", "(q(uit)?)|(exit)( game)?", []{ throw ExitGameException(); }));
     commands.push_back(Command("Help", "help", [&]{ this->textbox.SetGameText(Game::Messages::Help); }));
+    commands.push_back(Command("Check Inventory", "(check )?inv(entory)?", [&]{ this->textbox.SetGameText(this->GetPlayerInvAsString()); }));
 
     // direction commands
     if (this->state == GameState::Gameplay) {
@@ -177,7 +191,7 @@ vector<Command> Game::GetCommands() {
 
     // room commands
     if (this->state == GameState::Gameplay) {
-        commands.push_back(Command("Look Around", "look( around)?", [&]{ this->textbox.SetGameText(this->player.GetRoom()->GetMessages().OnLook); }));
+        commands.push_back(Command("Look Around", "look( around)?", [&]{ this->textbox.SetGameText(this->player.GetCurrentRoom()->GetMessages().OnLook); }));
     }
 
     /* everything else will go here */
@@ -193,12 +207,34 @@ vector<Command> Game::GetCommands() {
 
 /* performs the failure check */
 void Game::TryMove(Room::Direction dir) {
-    Room *r = this->player.GetRoom()->GetPath(dir);
+    Room *r = this->player.GetCurrentRoom()->GetPath(dir);
     if (r == nullptr) {
         this->textbox.SetGameText(Game::Messages::BlockedDirection);
     } else {
         this->player.Move(dir);
-        this->textbox.SetGameText("You went " + Room::DirToString[dir] + ".\n" + this->player.GetRoom()->GetEnterMsg());
-        this->player.GetRoom()->Visit();
+        this->textbox.SetGameText("You went " + Room::DirToString[dir] + ".\n" + this->player.GetCurrentRoom()->GetEnterMsg());
+        this->player.GetCurrentRoom()->Visit();
+    }
+}
+
+std::string Game::GetPlayerInvAsString() {
+    vector<Item> inv = this->player.GetInv();
+    switch (inv.size()) {
+        case 0: return "Your inventory is empty.";
+        case 1: return "Your inventory contains " + inv.at(0).repr() + ".";
+        case 2: return "Your inventory contains " + inv.at(0).repr() + " and " + inv.at(1).repr() + ".";
+        case 3: return "Your inventory contains " + inv.at(0).repr() + ", " + inv.at(1).repr() + ", and " + inv.at(2).repr() + ".";
+        default: {
+            std::string s = "Your inventory contains ";
+            int i;
+            for (i = 0; i < inv.size() - 1; i++) {
+                s += inv.at(i).repr();
+                s += ", ";
+            }
+            s += "and ";
+            s += inv.at(i).repr();
+            s += ".";
+            return s;
+        }
     }
 }

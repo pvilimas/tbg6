@@ -3,6 +3,7 @@
         "*.pl": "prolog",
         "*.rb": "ruby",
         "a": "plaintext",
+        "*.cppm": "cpp",
         "iostream": "cpp",
         "ostream": "cpp",
         "ios": "cpp",
@@ -55,7 +56,13 @@
         "cstring": "cpp",
         "bitset": "cpp",
         "ctime": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "chrono": "cpp",
+        "ratio": "cpp",
+        "fstream": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
