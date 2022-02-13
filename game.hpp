@@ -68,16 +68,32 @@ class Game {
 
     private:
 
+        /* STATIC METHODS */
+
+        static vector<KeyboardKey> GetKeysPressed();
+
+        /* INSTANCE VARS */
+
+        /* the window title */
         string winTitle;
+        /* starting dimensions of the window */
         int winWidth, winHeight;
+        /* currently the only texture used - add more later */
         Texture2D texture;
+        /* the only textbox that will ever be needed */
         TextBox textbox;
+        /* which state the game is currently in */
         GameState state;
+        /* the only player */
         Player player;
-        unordered_map<string, Room> rooms;
+        /* a collection of all possible rooms */
+        unordered_map<string, Room&> rooms;
+        /* a collection of all possible items */
+        unordered_map<string, Item&> items;
+
+        /* INSTANCE METHODS */
 
         vector<Command> GetCommands();
-        static vector<KeyboardKey> GetKeysPressed();
 
     public:
     

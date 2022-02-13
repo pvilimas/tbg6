@@ -44,6 +44,7 @@ Game::Game(string winTitle, int winWidth, int winHeight)
     this->textbox.SetGameText(Game::Messages::Title);
 }
 
+/* initializes the game and window */
 void Game::Init() {
     SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT | FLAG_WINDOW_RESIZABLE);
     InitWindow(this->winWidth, this->winHeight, this->winTitle.c_str());
@@ -55,14 +56,16 @@ void Game::Init() {
     this->texture = LoadTextureFromImage(img);
     UnloadImage(img);
 
+
+    // create rooms
     this->rooms.insert({
-        { "Kitchen", Room("Kitchen", Room::Messages {
+        { "Kitchen", new Room("Kitchen", Room::Messages {
             .OnEnter = "You have entered the kitchen. ",
             .OnFirstEnter = "You have entered the kitchen. Various pots and pans lay scattered throughout. ",
             .OnStay = "You are in the kitchen. ",
             .OnLook = "You are in the kitchen. Various pots and pans lay scattered throughout, and a red key sits next to the stove. ",
         })},
-        { "Bedroom", Room("Bedroom", Room::Messages {
+        { "Bedroom", new Room("Bedroom", Room::Messages {
             .OnEnter = "You have entered the bedroom. ",
             .OnFirstEnter = "You have entered the bedroom. A queen size bed, neatly made, sits in the middle of the room. ",
             .OnStay = "You are in the bedroom. ",
@@ -70,24 +73,53 @@ void Game::Init() {
         })},
     });
 
+    // create items
+
+    /*this->items.insert({
+        { "Red Key", new Item("Red Key", Item::ItemAttrs {
+            .canCarry = true,
+            .canUse = true,
+        }}),
+        { "Red Door", new Item("Red Door", Item::ItemAttrs {
+            .canCarry = true,
+            .canUse = false,
+        }}),
+    });
+    */
+   
+    this->items.insert({
+        {"Red Key", new Item("Red Key", Item::ItemAttrs {
+            .canCarry = true,
+            .canUse = true,
+        })}
+    });
+
     // link rooms
     this->rooms.at("Kitchen").Link(this->rooms.at("Bedroom"), Room::Direction::North);
+
+    // add items to rooms
+    this->rooms.at("Kitchen").AddItem(this->items.at("Red Key"));
+    this->rooms.at("Bedroom").AddItem(this->items.at("Red Door"));
 }
 
+/* main loop */
 void Game::Run() {
     while (!WindowShouldClose()) {
         this->Draw();
     }
 }
 
+/* unused for now - maybe impl this when player can die */
 void Game::Reset() {}
 
+/* cleans up resources */
 void Game::Destroy() {
     UnloadTexture(this->texture);
     CloseWindow();
     delete this;
 }
 
+/* main draw function, called in Run */
 void Game::Draw() {
     BeginDrawing();
 
@@ -136,6 +168,7 @@ void Game::SetState(GameState new_state) {
     this->state = new_state;
 }
 
+/* Checks player text against each command and executes the onCall if it matches */
 void Game::EvalText(string text) {
     for (const Command& c : this->GetCommands()) {
         if (c.IsMatch(text)) {
@@ -145,6 +178,7 @@ void Game::EvalText(string text) {
     }
 }
 
+/* get a list of all keys pressed - used only for the text input */
 vector<KeyboardKey> Game::GetKeysPressed(void) {
 
     // stupid
@@ -169,6 +203,7 @@ vector<KeyboardKey> Game::GetKeysPressed(void) {
     return keys;
 }
 
+/* get all commands CURRENTLY allowed - like "take x" for each item in inv */
 vector<Command> Game::GetCommands() {
     vector<Command> commands;
 
@@ -217,6 +252,7 @@ void Game::TryMove(Room::Direction dir) {
     }
 }
 
+/* string representation of inventory */
 std::string Game::GetPlayerInvAsString() {
     vector<Item> inv = this->player.GetInv();
     switch (inv.size()) {

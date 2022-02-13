@@ -1,5 +1,5 @@
-COMP = g++
-CFLAGS = -std=c++20 -Wall -Wextra -pedantic -O2
+COMP = clang++
+CFLAGS = -std=c++2a -Wall -Wextra -pedantic -O2
 LFLAGS = -lm -Iinclude -lraylib -L/usr/local/include/raylib/raylib/ -framework iokit -framework Cocoa -framework OpenGL
 SRC = main.cpp game.cpp command.cpp item.cpp room.cpp graphics.cpp utils.cpp
 PLATFORM = mac

@@ -1,5 +1,6 @@
 #include "room.hpp"
 
+/* string representation */
 const std::string Room::DirToString[Direction::Count] = {
     "north",
     "south",
@@ -7,6 +8,7 @@ const std::string Room::DirToString[Direction::Count] = {
     "west"
 };
 
+/* reverse, used to link rooms */
 const Room::Direction Room::ReverseDirection[Room::Direction::Count] = {
     Room::Direction::South,
     Room::Direction::North,

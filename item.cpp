@@ -1,14 +1,16 @@
 #include "item.hpp"
 
 Item::Item(std::string name, Item::ItemAttrs attrs) {
-    _name = name;
-    _attrs = attrs;
+    this->name = name;
+    this->attrs = attrs;
 }
 
+/* string representation */
 std::string Item::repr() {
-    return _repr;
+    return this->_repr;
 }
 
+/* get specific stuff, like "turn on light */
 std::vector<std::string> Item::GetCommands() {
 
 }

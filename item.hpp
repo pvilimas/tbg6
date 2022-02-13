@@ -16,9 +16,9 @@ class Item {
 
     private:
 
-        std::string _name;
+        std::string name;
         std::string _repr;
-        Item::ItemAttrs _attrs;
+        Item::ItemAttrs attrs;
     
     public:
 
